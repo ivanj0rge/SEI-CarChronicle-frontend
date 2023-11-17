@@ -4,10 +4,13 @@ import axios from 'axios';
 function OwnerList() {
     const [owners, setOwners] = useState([]);
 
+    const apiUrl = process.env.REACT_APP_API_URL;
+
     useEffect(() => {
+        
         const fetchOwners = async () => {
             try {
-                const response = await axios.get(`${REACT_APP_DATABASE_URL}/owners/`);
+                const response = await axios.get(`${apiUrl}/owners/`);
                 setOwners(response.data);
             } catch (error) {
                 console.error('Error fetching owners:', error);
@@ -15,7 +18,7 @@ function OwnerList() {
         };
 
         fetchOwners();
-    }, []);
+    }, [apiUrl]);
 
     return (
         <div>
