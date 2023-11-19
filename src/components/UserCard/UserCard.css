@@ -1,0 +1,71 @@
+.uc {
+    width: 350px;
+    margin: 20px;
+    border-radius: 4px;
+    padding-bottom: 20px;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.gradiant {
+    background-image: linear-gradient( rgb(194, 192, 192), white );
+    height: 125px;
+    border-radius: 4px 4px 0px 0px;
+    width: 100%;
+}
+
+.profile-down {
+    text-align: center;
+}
+
+.profile-down img {
+    height: 130px;
+    width: 130px;
+    border-radius: 50%;
+    margin-top: -75px;
+    padding: 3px;
+    background: rgb(0, 195, 255);
+    cursor: pointer;
+}
+
+.user-name { 
+    font-size: 28px;
+    font-weight: 600;
+}
+
+.user-email {
+    font-size: 16px;
+    margin-top: -5px;
+}
+
+.user-vehicles {
+    margin: 15px 25px 15px 25px;
+    font-size: 18px;
+    text-align: left;
+}
+.user-vehicles span{
+    font-weight: 600;
+}
+
+.user-group {
+    font-size: 15px;
+    font-weight: 600;
+    text-align: left;
+    margin: 0 25px 15px 25px;
+}
+
+.update-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 50px;
+    color: black;
+    background: rgb(0, 195, 255);
+    border-radius: 50px;
+    font-size: 19px;
+    font-weight: 600;
+    cursor: pointer;
+}
