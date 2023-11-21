@@ -1,4 +1,5 @@
 import axios from "axios";
+import { jwtDecode } from 'jwt-decode'
 import { useState } from "react";
 import './LoginSignUp.css';
 import iname from '../Assets/icon_name.png';
@@ -37,9 +38,13 @@ function LoginSignUp() {
                     headers: { "Content-Type": "application/json" },
                 });
 
+                const token = data.access
+                const decoded = jwtDecode(token)
+
                 localStorage.clear();
                 localStorage.setItem("access_token", data.access);
                 localStorage.setItem("refresh_token", data.refresh);
+                localStorage.setItem("user_url", decoded.user_id);
                 axios.defaults.headers.common["Authorization"] = `Bearer ${data.access}`;
                 handleRedirect("/");
 
