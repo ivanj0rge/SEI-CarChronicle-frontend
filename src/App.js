@@ -6,6 +6,7 @@ import CarHistory from "./pages/CarHistory/CarHistory";
 import Navbar from "./components/Navbar/Navbar";
 import Profile from "./pages/Profile/Profile";
 import EditUser from "./components/EditUser/EditUser";
+import RegisterOwnership from "./pages/RegisterOwnership/RegisterOwnership";
 
 function App() {
     return (
@@ -18,6 +19,7 @@ function App() {
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/profile/:id/edit" element={<EditUser />} />
                 <Route path="/vehicle-history/:registration" element={<CarHistory />} />
+                <Route path="/register-ownership/:registration" element={<RegisterOwnership />} />
             </Routes>
         </Router>
     );

@@ -1,6 +1,7 @@
-import axios from "axios";
-import { jwtDecode } from 'jwt-decode'
-import { useState } from "react";
+import React, { useState } from 'react';
+import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './LoginSignUp.css';
 import iname from '../Assets/icon_name.png';
 import iemail from '../Assets/icon__email.png';
@@ -17,18 +18,16 @@ function LoginSignUp() {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [shouldSubmit, setShouldSubmit] = useState(false);
     const [error, setError] = useState("");
+    const navigate = useNavigate();
+    const location = useLocation();
 
     const apiUrl = process.env.REACT_APP_API_URL;
-
-    const handleRedirect = (path) => {
-        window.location.href = path;
-    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            if (action === "Login" && shouldSubmit) {
+            if (action === ACTION_LOGIN && shouldSubmit) {
                 const user = {
                     username: username,
                     password: password,
@@ -38,17 +37,18 @@ function LoginSignUp() {
                     headers: { "Content-Type": "application/json" },
                 });
 
-                const token = data.access
-                const decoded = jwtDecode(token)
+                const token = data.access;
+                const decoded = jwtDecode(token);
 
                 localStorage.clear();
                 localStorage.setItem("access_token", data.access);
                 localStorage.setItem("refresh_token", data.refresh);
                 localStorage.setItem("user_url", decoded.user_id);
                 axios.defaults.headers.common["Authorization"] = `Bearer ${data.access}`;
-                handleRedirect("/");
 
-            } else if (action === "Sign Up" && shouldSubmit) {
+                const { from } = location.state || { from: { pathname: '/' } };
+                navigate(from || '/'); // Redirect to the previous location or '/' if there's no previous location
+            } else if (action === ACTION_SIGN_UP && shouldSubmit) {
                 const user = {
                     username: username,
                     email: email,
@@ -56,30 +56,24 @@ function LoginSignUp() {
                     confirm_password: confirmPassword,
                 };
 
-                try {
-                    await axios.post(`${apiUrl}/create-user/`, user, {
-                        headers: { "Content-Type": "application/json" },
-                    });
-            
-                    // Redirect to login page after successful sign-up
-                    handleRedirect("/login");
-                } catch (error) {
-                    setError(error.response.data.detail || "An error occurred");
-                }
+                await axios.post(`${apiUrl}/create-user/`, user, {
+                    headers: { "Content-Type": "application/json" },
+                });
+
+                navigate("/login");
             }
         } catch (error) {
-            setError(error.response.data.detail || "An error occurred");
+            setError(error.response?.data.detail || "An error occurred");
         }
     };
 
     const handleToggleAction = (newAction) => {
-        // Check if the action has changed before updating the state
         if (action !== newAction) {
             setAction(newAction);
-            setError(""); // Clear any previous error messages
-            setShouldSubmit(false); // Set shouldSubmit to false when toggling between Login and Sign Up
+            setError("");
+            setShouldSubmit(false);
         } else {
-            setShouldSubmit(true); // Set shouldSubmit to true when newAction is equal to the current action
+            setShouldSubmit(true);
         }
     };
 

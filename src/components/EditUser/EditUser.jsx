@@ -10,6 +10,7 @@ function EditUser() {
         profile_picture: null,
     });
 
+    const [profilePicture, setProfilePicture] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -25,7 +26,10 @@ function EditUser() {
                         Authorization: `Bearer ${token}`,
                     },
                 });
-                setUserData(response.data);
+                setUserData({
+                    ...response.data,
+                    profile_picture: null, // Since you're updating it separately
+                });
             } catch (error) {
                 setError("Error fetching user data");
             } finally {
@@ -43,7 +47,7 @@ function EditUser() {
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
-        setUserData({ ...userData, profile_picture: file });
+        setProfilePicture(file);
     };
 
     const handleSubmit = async (e) => {
@@ -55,14 +59,14 @@ function EditUser() {
             formData.append("email", userData.email);
             formData.append("first_name", userData.first_name);
             formData.append("last_name", userData.last_name);
-            formData.append("profile_picture", userData.profile_picture);
+            formData.append("profile_picture", profilePicture);
 
             if (userData.password) {
                 formData.append("password", userData.password);
                 formData.append("confirm_password", userData.confirm_password);
             }
 
-            await axios.put(`${apiUrl}/users/${userId}/update/`, formData, {
+            await axios.patch(`${apiUrl}/users/${userId}/update/`, formData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     "Content-Type": "multipart/form-data",
@@ -73,6 +77,7 @@ function EditUser() {
             setError("Error updating user");
         }
     };
+
     if (loading) {
         return <div>Loading...</div>;
     }
@@ -82,7 +87,7 @@ function EditUser() {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} encType="multipart/form-data">
             <label>
                 Username:
                 <input

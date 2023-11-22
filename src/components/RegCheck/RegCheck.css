@@ -3,15 +3,22 @@
     flex-direction: column;
     width: 650px;
     margin:auto;
-    margin-top: 200px;
+    margin-top: 100px;
     background:  transparent;
     padding-top: 30px;
 }
 
 h2 {
-    font-size: 26px;
+    font-size: 24px;
     color: rgb(129, 128, 128);
     font-weight: 500;
+}
+
+p {
+    font-size: 14px;
+    color: rgb(129, 128, 128);
+    font-weight: 500;
+    margin-left: 20px;
 }
 
 .reg-container {

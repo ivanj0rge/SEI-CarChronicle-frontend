@@ -55,6 +55,7 @@ function UserCard() {
                 <img src={userData.profile_picture} alt="" />
                 <div className="user-name">{userData.username}</div>
                 <div className="user-email">{userData.email}</div>
+                <div className="user-vehicles"><span>Full Name:</span> {userData.first_name} {userData.last_name}</div>
                 <div className="user-vehicles"><span>Vehicles:</span> {userData.vehicleList}</div>
                 <div className="user-group">{userData.groups}</div>
             </div>
