@@ -7,10 +7,10 @@ function EditUser() {
         email: "",
         first_name: "",
         last_name: "",
-        profile_picture: null,
+        profile_picture: '',
     });
 
-    const [profilePicture, setProfilePicture] = useState(null);
+    const [profilePicture, setProfilePicture] = useState('');
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -28,7 +28,6 @@ function EditUser() {
                 });
                 setUserData({
                     ...response.data,
-                    profile_picture: null, // Since you're updating it separately
                 });
             } catch (error) {
                 setError("Error fetching user data");
@@ -48,6 +47,7 @@ function EditUser() {
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         setProfilePicture(file);
+        console.log(file);
     };
 
     const handleSubmit = async (e) => {
@@ -60,6 +60,7 @@ function EditUser() {
             formData.append("first_name", userData.first_name);
             formData.append("last_name", userData.last_name);
             formData.append("profile_picture", profilePicture);
+            console.log(userData);
 
             if (userData.password) {
                 formData.append("password", userData.password);

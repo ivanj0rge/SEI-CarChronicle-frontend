@@ -13,9 +13,10 @@ function RegisterOwnership() {
         engineCapacity: '',
         current_v5c_number: '',
     });
-    const [carData, setCarData] = useState('')
+    // const [carData, setCarData] = useState('')
     const apiUrl = process.env.REACT_APP_API_URL;
     const navigate = useNavigate();
+    const token = localStorage.getItem("access_token")
 
     useEffect(() => {
         const isAuthenticated = localStorage.getItem('access_token');
@@ -29,11 +30,18 @@ function RegisterOwnership() {
 
                 if (response.ok) {
                     const data = await response.json();
-                    setCarData({
-                        ...data,
-                        model: '',
-                        cc: '',
-                        current_v5c_number: '',
+                    
+                    const { registrationNumber, colour, make, model, yearOfManufacture, fuelType, engineCapacity, current_v5c_number } = data;
+    
+                    setFormData({
+                        registrationNumber,
+                        colour,
+                        make,
+                        model,
+                        yearOfManufacture,
+                        fuelType,
+                        engineCapacity,
+                        current_v5c_number,
                     });
                 } else {
                     console.error('Error fetching data:', response.statusText);
@@ -51,7 +59,10 @@ function RegisterOwnership() {
     }, [registration, navigate, apiUrl]);
 
     const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            [e.target.name]: e.target.value,
+        }));
     };
 
     const handleSubmit = async (e) => {
@@ -63,7 +74,7 @@ function RegisterOwnership() {
                 body: JSON.stringify(formData),
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+                    Authorization: `Bearer ${token}`,
                 },
             });
 
@@ -84,35 +95,35 @@ function RegisterOwnership() {
             <form onSubmit={handleSubmit}>
                 <label>
                     Registration Number:
-                    <input type="text" name="RegistrationNumber" value={carData.registrationNumber} onChange={handleChange} disabled />
+                    <input type="text" name="RegistrationNumber" value={formData.registrationNumber || ''} onChange={handleChange} disabled />
                 </label>
                 <label>
                     Color:
-                    <input type="text" name="color" value={carData.colour} onChange={handleChange} disabled />
+                    <input type="text" name="color" value={formData.colour || ''} onChange={handleChange} disabled />
                 </label>
                 <label>
                     Make:
-                    <input type="text" name="make" value={carData.make} onChange={handleChange} disabled />
+                    <input type="text" name="make" value={formData.make || ''} onChange={handleChange} disabled />
                 </label>
                 <label>
                     Model:
-                    <input type="text" name="model" value={formData.model} onChange={handleChange} />
+                    <input type="text" name="model" value={formData.model || ''} onChange={handleChange} />
                 </label>
                 <label>
                     Year:
-                    <input type="text" name="year" value={carData.yearOfManufacture} onChange={handleChange} disabled />
+                    <input type="text" name="year" value={formData.yearOfManufacture || ''} onChange={handleChange} disabled />
                 </label>
                 <label>
                     Fuel Type:
-                    <input type="text" name="fuel_type" value={carData.fuelType} onChange={handleChange} disabled />
+                    <input type="text" name="fuel_type" value={formData.fuelType || ''} onChange={handleChange} disabled />
                 </label>
                 <label>
                     Engine Capacity (cc):
-                    <input type="text" name="cc" value={carData.engineCapacity} onChange={handleChange} disabled />
+                    <input type="text" name="cc" value={formData.engineCapacity || ''} onChange={handleChange} disabled />
                 </label>
                 <label>
                     V5C Number:
-                    <input type="text" name="current_v5c_number" value={formData.current_v5c_number} onChange={handleChange} />
+                    <input type="text" name="current_v5c_number" value={formData.current_v5c_number || ''} onChange={handleChange} />
                 </label>
                 <button type="submit">Submit</button>
             </form>

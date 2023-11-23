@@ -30,7 +30,7 @@
     cursor: pointer;
 }
 
-.user-name { 
+.user-username { 
     font-size: 28px;
     font-weight: 600;
 }
@@ -40,13 +40,25 @@
     margin-top: -5px;
 }
 
-.user-vehicles {
-    margin: 15px 25px 15px 25px;
+.user-name { 
+    margin: 25px 25px 5px 25px;
     font-size: 18px;
+    text-align: left;
+}
+
+.user-name span{ 
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.user-vehicles {
+    margin: 5px 25px 15px 25px;
+    font-size: 16px;
     text-align: left;
 }
 .user-vehicles span{
     font-weight: 600;
+    font-size: 18px;
 }
 
 .user-group {
