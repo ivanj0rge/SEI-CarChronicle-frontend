@@ -13,3 +13,18 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.loading {
+  font-size: 14px;
+    color: rgb(129, 128, 128);
+    font-weight: 500;
+    margin-left: 20px;
+}
+
+.error {
+  font-size: 14px;
+    color: rgb(129, 128, 128);
+    font-weight: 500;
+    margin-left: 20px;
+    margin-top: 20px;
+}

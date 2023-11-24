@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import './RegisterOwnership.css'
 
 function RegisterOwnership() {
     const { registration } = useParams();
@@ -30,9 +31,9 @@ function RegisterOwnership() {
 
                 if (response.ok) {
                     const data = await response.json();
-                    
+
                     const { registrationNumber, colour, make, model, yearOfManufacture, fuelType, engineCapacity, current_v5c_number } = data;
-    
+
                     setFormData({
                         registrationNumber,
                         colour,
@@ -61,13 +62,13 @@ function RegisterOwnership() {
     const handleChange = (e) => {
         setFormData((prevFormData) => ({
             ...prevFormData,
-            [e.target.name]: e.target.value,
+            [e.target.name]: e.target.value.toUpperCase(),
         }));
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
         try {
             const response = await fetch(`${apiUrl}/vehicles/`, {
                 method: 'POST',
@@ -90,43 +91,45 @@ function RegisterOwnership() {
 
 
     return (
-        <div>
-            <h2>Register Ownership</h2>
-            <form onSubmit={handleSubmit}>
-                <label>
-                    Registration Number:
-                    <input type="text" name="RegistrationNumber" value={formData.registrationNumber || ''} onChange={handleChange} disabled />
-                </label>
-                <label>
-                    Color:
-                    <input type="text" name="color" value={formData.colour || ''} onChange={handleChange} disabled />
-                </label>
-                <label>
-                    Make:
-                    <input type="text" name="make" value={formData.make || ''} onChange={handleChange} disabled />
-                </label>
-                <label>
-                    Model:
-                    <input type="text" name="model" value={formData.model || ''} onChange={handleChange} />
-                </label>
-                <label>
-                    Year:
-                    <input type="text" name="year" value={formData.yearOfManufacture || ''} onChange={handleChange} disabled />
-                </label>
-                <label>
-                    Fuel Type:
-                    <input type="text" name="fuel_type" value={formData.fuelType || ''} onChange={handleChange} disabled />
-                </label>
-                <label>
-                    Engine Capacity (cc):
-                    <input type="text" name="cc" value={formData.engineCapacity || ''} onChange={handleChange} disabled />
-                </label>
-                <label>
-                    V5C Number:
-                    <input type="text" name="current_v5c_number" value={formData.current_v5c_number || ''} onChange={handleChange} />
-                </label>
-                <button type="submit">Submit</button>
-            </form>
+        <div className="page">
+            <div className='contain'>
+                <h2 className='header'>Register Ownership</h2>
+                <form className='form' onSubmit={handleSubmit}>
+                    <label className='label'>
+                        Registration Number:
+                        <input className='field' type="text" name="RegistrationNumber" value={formData.registrationNumber || ''} onChange={handleChange} disabled />
+                    </label>
+                    <label className='label'>
+                        Color:
+                        <input className='field' type="text" name="color" value={formData.colour || ''} onChange={handleChange} disabled />
+                    </label>
+                    <label className='label'>
+                        Make:
+                        <input className='field' type="text" name="make" value={formData.make || ''} onChange={handleChange} disabled />
+                    </label>
+                    <label className='label'>
+                        Model:
+                        <input className='field' type="text" name="model" value={formData.model || ''} onChange={handleChange} />
+                    </label>
+                    <label className='label'>
+                        Year:
+                        <input className='field' type="text" name="year" value={formData.yearOfManufacture || ''} onChange={handleChange} disabled />
+                    </label>
+                    <label className='label'>
+                        Fuel Type:
+                        <input className='field' type="text" name="fuel_type" value={formData.fuelType || ''} onChange={handleChange} disabled />
+                    </label>
+                    <label className='label'>
+                        Engine Capacity (cc):
+                        <input className='field' type="text" name="cc" value={formData.engineCapacity || ''} onChange={handleChange} disabled />
+                    </label>
+                    <label className='label'>
+                        V5C Number:
+                        <input className='field' type="text" name="current_v5c_number" value={formData.current_v5c_number || ''} onChange={handleChange} />
+                    </label>
+                    <button className='save' type="submit">Submit</button>
+                </form>
+            </div>
         </div>
     );
 };

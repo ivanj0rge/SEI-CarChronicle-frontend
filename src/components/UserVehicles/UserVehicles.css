@@ -8,8 +8,7 @@ h2 {
 
 .vehicle-card {
     display: flex;
-    justify-content: center;
-    border: 1px solid whitesmoke;
+    justify-content: flex-start;
     width: fit-content;
     height: fit-content;
     margin: 10px;
@@ -19,9 +18,11 @@ h2 {
     display: inline-block;
     text-align: center;
     border: 1px solid whitesmoke;
-    width: 280px;
+    border-radius: 8px;
+    width: 250px;
     height: fit-content;
     margin: 20px;  
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.219);
 }
 .registration {
     display: flex;
@@ -48,4 +49,29 @@ h2 {
     display: flex;
     align-items: flex-end;
     margin-left: 10px;
+}
+
+button.history {
+        width: 120px;
+        height: 50px;
+        color: black;
+        background: rgb(0, 195, 255);
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        border: 1px solid whitesmoke;
+        margin-bottom: 10px;
+}
+button {
+        width: fit-content;
+        height: 20px;
+        color: black;
+        background: rgb(0, 195, 255);
+        border-radius: 6px;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        border: 1px solid whitesmoke;
+        margin: 5px;
 }

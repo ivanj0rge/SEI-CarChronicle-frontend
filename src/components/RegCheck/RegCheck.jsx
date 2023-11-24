@@ -45,7 +45,7 @@ function RegCheck() {
     return (
         <div>
             <div className="check-container">
-                <h2>Vehicle Registration Checker</h2>
+                <h2 className='v'>Vehicle Registration Checker</h2>
                 <form onSubmit={handleCheckRegistration}>
                     <div className="reg-container">
                         <img src={gbflag} alt="" />

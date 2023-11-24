@@ -1,21 +1,22 @@
 import React from 'react';
-import './CarDataDisplay'
+import './CarDataDisplay.css'
 
 function CarDataDisplay({ data }) {
     data = JSON.parse(data)
+
     return (
-        <div>
+        <div className="your-board">
             <h3>Vehicle Details</h3>
             {data ? (
-                <div className='data-table'>
-                    <div className='table-row header'>
-                        <div className='table-cell'>Key</div>
-                        <div className='table-cell'>Value</div>
-                    </div>
+                <div className="row">
                     {Object.keys(data).map((key) => (
-                        <div className='table-row' key={key}>
-                            <div className='table-cell'>{key}</div>
-                            <div className='table-cell'>{data[key]}</div>
+                        <div key={key} className="col-lg-4 col-md-6">
+                            <div className="card">
+                                <div className="card-body">
+                                    <h5 className="card-title">{key}</h5>
+                                    <p className="card-text">{data[key]}</p>
+                                </div>
+                            </div>
                         </div>
                     ))}
                 </div>
@@ -26,4 +27,6 @@ function CarDataDisplay({ data }) {
     );
 }
 
+
 export default CarDataDisplay;
+

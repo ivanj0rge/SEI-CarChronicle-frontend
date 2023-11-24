@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
-import { useNavigate, useLocation } from 'react-router-dom';
 import './LoginSignUp.css';
 import iname from '../Assets/icon_name.png';
 import iemail from '../Assets/icon__email.png';
@@ -17,14 +16,15 @@ function LoginSignUp() {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [shouldSubmit, setShouldSubmit] = useState(false);
-    const [error, setError] = useState("");
-    const navigate = useNavigate();
-    const location = useLocation();
+    const [fail, setFail] = useState("");
 
     const apiUrl = process.env.REACT_APP_API_URL;
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        setFail("")
+        let reloadPage = false;
 
         try {
             if (action === ACTION_LOGIN && shouldSubmit) {
@@ -33,11 +33,25 @@ function LoginSignUp() {
                     password: password,
                 };
 
-                const { data } = await axios.post(`${apiUrl}/token/`, user, {
-                    headers: { "Content-Type": "application/json" },
-                });
+                let response;
 
+                try {
+                    response = await axios.post(`${apiUrl}/token/`, user, {
+                        headers: { "Content-Type": "application/json" },
+                    });
+                } catch (error) {
+                    response = error.response;
+                }
+    
+                const data = response.data || {};
                 const token = data.access;
+                
+                if (!token) {
+                    console.error("Invalid response from the server:", response);
+                    setFail("Invalid credentials. Please Sign Up first.");
+                    return;
+                }
+    
                 const decoded = jwtDecode(token);
 
                 localStorage.clear();
@@ -46,8 +60,8 @@ function LoginSignUp() {
                 localStorage.setItem("user_url", decoded.user_id);
                 axios.defaults.headers.common["Authorization"] = `Bearer ${data.access}`;
 
-                const { from } = location.state || { from: { pathname: '/' } };
-                navigate(from || '/'); // Redirect to the previous location or '/' if there's no previous location
+                window.location.pathname = '/';
+
             } else if (action === ACTION_SIGN_UP && shouldSubmit) {
                 const user = {
                     username: username,
@@ -55,22 +69,45 @@ function LoginSignUp() {
                     password: password,
                     confirm_password: confirmPassword,
                 };
-
-                await axios.post(`${apiUrl}/create-user/`, user, {
-                    headers: { "Content-Type": "application/json" },
-                });
-
-                navigate("/login");
+    
+                try {
+                    await axios.post(`${apiUrl}/create-user/`, user, {
+                        headers: { "Content-Type": "application/json" },
+                    });
+    
+                    reloadPage = true
+                } catch (error) {
+                    console.error("Error creating user:", error);
+                    setFail(error.response?.data.detail || "An error occurred while creating the user. Please try again.");
+                }
             }
-        } catch (error) {
-            setError(error.response?.data.detail || "An error occurred");
+        } catch (fail) {
+            console.error("Fail:", fail);
+    
+            if (action === ACTION_LOGIN) {
+                if (fail.response && fail.response.status === 401) {
+                    setFail("Incorrect password. Please check your password and try again.");
+                } else {
+                    setFail(fail.response?.data.detail || "An error occurred");
+                }
+            } else if (action === ACTION_SIGN_UP) {
+                if (fail.response && fail.response.status === 400) {
+                    setFail("Invalid credentials. Please check your username and password and try again.");
+                } else {
+                    setFail(fail.response?.data.detail || "An error occurred");
+                }
+            }
+        } finally {
+            if (reloadPage) {
+                window.location.reload();
+            }
         }
     };
 
     const handleToggleAction = (newAction) => {
         if (action !== newAction) {
             setAction(newAction);
-            setError("");
+            setFail("");
             setShouldSubmit(false);
         } else {
             setShouldSubmit(true);
@@ -83,7 +120,7 @@ function LoginSignUp() {
                 <div className="text">{action}</div>
                 <div className="underline"></div>
             </div>
-            {error && <div className="error-message">{error}</div>}
+            {fail && <div className="error">{fail}</div>}
             <form className="inputs" onSubmit={handleSubmit}>
                 {action === ACTION_LOGIN ? (
                     <div className="input">

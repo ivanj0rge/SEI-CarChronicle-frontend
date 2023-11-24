@@ -1,3 +1,8 @@
+.board {
+    display: flex;
+    justify-content: center;
+}
+
 .uc {
     width: 350px;
     margin: 20px;
@@ -76,7 +81,7 @@
     height: 50px;
     color: black;
     background: rgb(0, 195, 255);
-    border-radius: 50px;
+    border-radius: 8px;
     font-size: 19px;
     font-weight: 600;
     cursor: pointer;

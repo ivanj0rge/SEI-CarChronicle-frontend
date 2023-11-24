@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import './editUser.css'
 
 function EditUser() {
     const [userData, setUserData] = useState({
@@ -7,10 +8,10 @@ function EditUser() {
         email: "",
         first_name: "",
         last_name: "",
-        profile_picture: '',
+        // profile_picture: '',
     });
 
-    const [profilePicture, setProfilePicture] = useState('');
+    // const [profilePicture, setProfilePicture] = useState('');
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -44,11 +45,11 @@ function EditUser() {
         setUserData({ ...userData, [name]: value });
     };
 
-    const handleFileChange = (e) => {
-        const file = e.target.files[0];
-        setProfilePicture(file);
-        console.log(file);
-    };
+    // const handleFileChange = (e) => {
+    //     const file = e.target.files[0];
+    //     setProfilePicture(file);
+    //     console.log(file);
+    // };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -59,7 +60,7 @@ function EditUser() {
             formData.append("email", userData.email);
             formData.append("first_name", userData.first_name);
             formData.append("last_name", userData.last_name);
-            formData.append("profile_picture", profilePicture);
+            // formData.append("profile_picture", profilePicture);
             console.log(userData);
 
             if (userData.password) {
@@ -74,72 +75,75 @@ function EditUser() {
                 },
             });
             console.log("User updated successfully");
+            window.location.pathname = '/profile';
         } catch (error) {
             setError("Error updating user");
         }
     };
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <div className="loading">Loading...</div>;
     }
 
     if (error) {
-        return <div>Error: {error}</div>;
+        return <div className="error">Error: {error}</div>;
     }
 
     return (
-        <form onSubmit={handleSubmit} encType="multipart/form-data">
-            <label>
-                Username:
-                <input
-                    type="text"
-                    name="username"
-                    value={userData.username}
-                    onChange={handleChange}
-                />
-            </label>
-            <br />
-            <label>
-                Email:
-                <input
-                    type="email"
-                    name="email"
-                    value={userData.email}
-                    onChange={handleChange}
-                />
-            </label>
-            <br />
-            <label>
-                First Name:
-                <input
-                    type="text"
-                    name="first_name"
-                    value={userData.first_name}
-                    onChange={handleChange}
-                />
-            </label>
-            <br />
-            <label>
-                Last Name:
-                <input
-                    type="text"
-                    name="last_name"
-                    value={userData.last_name}
-                    onChange={handleChange}
-                />
-            </label>
-            <br />
-            <label>
-                Profile Picture:
-                <input
-                    type="file"
-                    name="profile_picture"
-                    onChange={handleFileChange}
-                />
-            </label>
-            <br />
-            <button type="submit">Save Changes</button>
-        </form>
+        <div className="contain">
+            <h2 className="header">Edit Your Details</h2>
+            <form onSubmit={handleSubmit} encType="multipart/form-data">
+                <div className="form">
+                <label className="label">
+                    Username:
+                    <input
+                        className="field"
+                        type="text"
+                        name="username"
+                        value={userData.username}
+                        onChange={handleChange}
+                    />
+                </label>
+                <br />
+                <label className="label">
+                    Email:
+                    <input
+                        className="field"
+                        type="email"
+                        name="email"
+                        value={userData.email}
+                        onChange={handleChange}
+                    />
+                </label>
+                <br />
+                <label className="label">
+                    First Name:
+                    <input
+                        className="field"
+                        type="text"
+                        name="first_name"
+                        value={userData.first_name}
+                        onChange={handleChange}
+                    />
+                </label>
+                <br />
+                <label className="label">
+                    Last Name:
+                    <input
+                        className="field"
+                        type="text"
+                        name="last_name"
+                        value={userData.last_name}
+                        onChange={handleChange}
+                    />
+                </label>
+                </div>
+                <br />
+                <div className="but">
+                <button className="save" type="submit">Save Changes</button>
+                </div>
+            </form>
+        </div>
     );
 }
 
