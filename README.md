@@ -1,70 +1,62 @@
-# Getting Started with Create React App
+Description:
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+CarChronicle is a comprehensive web application developed during the final week of the General Assembly Software Engineering course. It is built using React.js for the frontend, Django Python for the backend, and a PostgreSQL database to store data. The project allows users to track vehicle information, claim ownership, and record maintenance activities.
 
-## Available Scripts
+Deployment link:
 
-In the project directory, you can run:
+https://sei-carchronicle-frontend-production.up.railway.app/
 
-### `npm start`
+Getting Started/Code Installation:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+To explore the code and run the project locally, follow these steps:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Clone the repository: git clone https://github.com/ivanj0rge/SEI-CarChronicle-frontend / https://github.com/ivanj0rge/SEI-CarChronicle-backend
+Navigate to the project folder and set up the backend using Django migrations.
+Install frontend dependencies with npm install and start the React development server with npm start.
 
-### `npm test`
+Timeframe & Working Team:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+I worked independently on the CarChronicle project during the last week of the GA Software Engineering course.
 
-### `npm run build`
+Technologies Used:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+React.js
+Django Python
+PostgreSQL
+External API for vehicle data retrieval
+Brief:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The project brief was to create a full-stack web application using React.js and Django Python, integrating an external API to retrieve vehicle information. The application allows users to claim vehicle ownership, add maintenance records, and view a chronicle of their vehicle's history.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Planning:
 
-### `npm run eject`
+During the planning stage, I created wireframes for the frontend, designed the backend data models using Django ORM, and utilized Trello for project management. The use of pseudocode helped structure the initial logic flow.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Build/Code Process:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+The project was structured following a modular approach, with separate components for frontend and backend functionalities.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Challenges:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Integrating data from the external API and ensuring seamless synchronization with the database.
+Managing state and ensuring smooth communication between React frontend and Django backend.
 
-## Learn More
+Wins:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Successful integration of the external API to retrieve accurate vehicle information.
+Implemented a user-friendly interface for claiming ownership and recording maintenance activities.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Key Learnings/Takeaways:
 
-### Code Splitting
+Gained proficiency in using React.js for frontend development.
+Enhanced skills in setting up and managing a Django backend with PostgreSQL.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Bugs:
 
-### Analyzing the Bundle Size
+No significant bugs to report.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Future Improvements:
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Implement user authentication for personalized vehicle chronicles.
+Enhance data validation and error handling mechanisms.
+Add more features such as notifications for upcoming maintenance tasks.
