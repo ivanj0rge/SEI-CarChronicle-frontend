@@ -1,3 +1,6 @@
+
+![Screenshot 2023-12-06 142856](https://github.com/ivanj0rge/SEI-CarChronicle-frontend/assets/143030533/8be21493-378d-407a-ba2f-cfee25f681c9)
+
 Description:
 
 CarChronicle is a comprehensive web application developed during the final week of the General Assembly Software Engineering course. It is built using React.js for the frontend, Django Python for the backend, and a PostgreSQL database to store data. The project allows users to track vehicle information, claim ownership, and record maintenance activities.
